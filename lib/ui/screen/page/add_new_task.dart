@@ -12,7 +12,7 @@ class _AddNewTaskState extends State<AddNewTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child:  Column(
