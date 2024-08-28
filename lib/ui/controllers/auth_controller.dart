@@ -32,6 +32,11 @@ class AuthController{
      return userInfo;
    }
 
+   static Future<void> clearData() async {
+     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+     await sharedPreferences.clear();
+   }
+
    static Future<bool> checkAuthState() async {
      String? token = await getAccessToken();
      if(token == '') return false;
