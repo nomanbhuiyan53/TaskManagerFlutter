@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tasksystem/data/models/LoginModel.dart';
+import 'package:tasksystem/data/models/UserModel.dart';
 import 'package:tasksystem/data/models/network_response.dart';
 import 'package:tasksystem/data/network_caller/network_caller.dart';
 import 'package:tasksystem/ui/screen/forget_password_screen.dart';
@@ -156,8 +157,9 @@ class _SignInScreenState extends State<SignInScreen> {
         await NetworkCaller.postRequest(Urls.loginUrl, body);
     if (response.isSuccess) {
       LoginModel loginModel = LoginModel.fromJson(response.responseData);
-      await AuthController.saveUser(loginModel.data!);
       await AuthController.saveAccessToken(loginModel.token!);
+      await AuthController.saveUser(loginModel.userModel!);
+
       if (mounted) {
         showSnakMessage(context, "Login Successful");
         Navigator.pushReplacement(

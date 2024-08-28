@@ -5,6 +5,7 @@ import 'package:tasksystem/data/models/UserModel.dart';
 
 class AuthController{
   static String accessToken ='';
+  static UserModel? userData ;
 
    static Future<void> saveAccessToken(String token) async {
      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -29,6 +30,14 @@ class AuthController{
      if(data == null) return null;
      UserModel userInfo = UserModel.fromJson(jsonDecode(data));
      return userInfo;
+   }
+
+   static Future<bool> checkAuthState() async {
+     String? token = await getAccessToken();
+     if(token == '') return false;
+     accessToken = token;
+     userData = await getUser();
+     return true;
    }
 
 
